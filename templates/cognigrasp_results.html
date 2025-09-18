@@ -3,72 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results - CogniGrasp</title>
+    <title>AI Analysis - CogniGrasp</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: #f8f9fa;
+            color: #333;
         }
         .container {
             background-color: white;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         h1 {
             color: #4a6fa5;
+            margin-bottom: 5px;
+        }
+        .subject-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .subject-math {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+        .subject-history {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .subject-science {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .subject-programming {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+        }
+        .subject-general {
+            background-color: #fff3e0;
+            color: #ef6c00;
         }
         .section {
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .section:last-child {
+            border-bottom: none;
+        }
+        h2 {
+            color: #4a6fa5;
+            margin-top: 0;
+        }
+        .original-input {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4a6fa5;
+            white-space: pre-wrap;
+        }
+        .summary {
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        .flashcards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
         }
         .flashcard {
-            background-color: #f9f9f9;
+            background-color: #fff;
             padding: 15px;
-            border-left: 4px solid #4a6fa5;
-            margin-bottom: 10px;
-            border-radius: 4px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            border-top: 4px solid #4a6fa5;
         }
-        button {
+        .review-schedule {
+            background-color: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .review-date {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #bbdefb;
+        }
+        .review-date:last-child {
+            border-bottom: none;
+        }
+        .btn {
             background-color: #4a6fa5;
             color: white;
             padding: 10px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
             margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #3a5a80;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Processing Results</h1>
+        <h1>AI Analysis Complete</h1>
+        <div class="subject-badge subject-{{ subject }}">
+            {{ subject|upper }} CONTENT DETECTED
+        </div>
 
         <div class="section">
             <h2>Original Input:</h2>
-            <p>{{ original_input }}</p>
+            <div class="original-input">{{ original_input }}</div>
         </div>
 
         <div class="section">
             <h2>AI-Generated Summary:</h2>
-            <p>{{ summary }}</p>
+            <div class="summary">{{ summary }}</div>
         </div>
 
         <div class="section">
             <h2>Study Flashcards:</h2>
-            {% for card in flashcards %}
-            <div class="flashcard">
-                {{ card }}
+            <div class="flashcards">
+                {% for card in flashcards %}
+                <div class="flashcard">
+                    {{ card }}
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
 
-        <button onclick="window.location.href='/'">Process Another Text</button>
+        <div class="section">
+            <h2>Personalized Review Schedule:</h2>
+            <div class="review-schedule">
+                <p>Based on the spacing effect and forgetting curve, here's your optimal review schedule:</p>
+                {% for date in review_dates %}
+                <div class="review-date">
+                    <span>Session {{ loop.index }}:</span>
+                    <span>{{ date }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <a href="/" class="btn">Process Another Text</a>
     </div>
 </body>
 </html>
