@@ -1,1 +1,1 @@
-web: gunicorn cognigrasp_demo:app
+web: gunicorn cognigrasp_app:app

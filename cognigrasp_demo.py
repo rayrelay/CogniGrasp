@@ -87,7 +87,7 @@ def generate_ai_response(text):
 
 @app.route('/')
 def index():
-    return render_template('cognigrasp_index.html')
+    return render_template('cognigrasp_index_demo.html')
 
 
 @app.route('/process', methods=['POST'])
@@ -96,12 +96,12 @@ def process():
 
     # 如果输入为空，返回错误
     if not study_material.strip():
-        return render_template('cognigrasp_index.html', error="Please enter some study material.")
+        return render_template('cognigrasp_index_demo.html', error="Please enter some study material.")
 
     # 生成AI响应
     ai_response = generate_ai_response(study_material)
 
-    return render_template('cognigrasp_results.html',
+    return render_template('cognigrasp_results_demo.html',
                            summary=ai_response["summary"],
                            flashcards=ai_response["flashcards"],
                            subject=ai_response["subject"],
@@ -110,4 +110,4 @@ def process():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True)

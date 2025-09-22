@@ -165,46 +165,5 @@
 
         <a href="/" class="btn">Process Another Text</a>
     </div>
-
-    <div class="action-buttons" style="margin-top: 20px; display: flex; gap: 10px;">
-        <button onclick="logInteraction('export')" class="btn" style="background-color: #6c757d;">Export as PDF</button>
-        <button onclick="logInteraction('share')" class="btn" style="background-color: #6c757d;">Share</button>
-    </div>
-
-    <script>
-        const materialId = {{ material_id }};
-
-        function logInteraction(interactionType) {
-            fetch('/api/interaction', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    material_id: materialId,
-                    interaction_type: interactionType
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Interaction logged:', data);
-            })
-            .catch(error => {
-                console.error('Error logging interaction:', error);
-            });
-
-            if (interactionType === 'export') {
-                // Simulate PDF export
-                window.print();
-            } else if (interactionType === 'share') {
-                // Simulate share functionality
-                const shareUrl = window.location.origin + '/material/' + materialId;
-                navigator.clipboard.writeText(shareUrl)
-                    .then(() => alert('Share link copied to clipboard: ' + shareUrl))
-                    .catch(() => alert('Share link: ' + shareUrl));
-            }
-        }
-    </script>
-
 </body>
 </html>
